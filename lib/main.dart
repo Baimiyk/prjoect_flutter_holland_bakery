@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// Nanti kita import halaman dashboard di sini
+import 'package:google_fonts/google_fonts.dart'; // Pastikan package ini ada di pubspec.yaml
+import 'screens/dashboard.dart'; // Import halaman dashboard
 
 void main() {
   runApp(const MyApp());
@@ -11,14 +12,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:
-          false, // Menghilangkan pita "Debug" di pojok kanan atas
-      title: 'Dashboard UI',
+      debugShowCheckedModeBanner: false, // Menghilangkan banner 'Debug'
+      title: 'Holland Bakery UI',
       theme: ThemeData(
         useMaterial3: true,
-        // Nanti kita atur warna dan font di sini
+        // Set font global jadi Poppins (opsional, biar mirip desain)
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        // Warna primary default
+        primarySwatch: Colors.orange,
       ),
-      home: const Scaffold(body: Center(child: Text("Siap untuk Coding!"))),
+      home: const Dashboard(), // Panggil Dashboard di sini
     );
   }
 }
