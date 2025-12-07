@@ -31,26 +31,29 @@ lib/
 ##🚀 Cara Menjalankan (Installation)
 Clone repository ini:
 
-Bash
 
+```bash
 git clone [https://github.com/USERNAME/flutter-dashboard-ui.git](https://github.com/USERNAME/flutter-dashboard-ui.git)
+```
 Masuk ke folder project:
 
-Bash
 
+```bash
 cd flutter-dashboard-ui
+```
 Install dependencies:
 
-Bash
 
+```bash
 flutter pub get
+```
 Jalankan aplikasi:
 
-Bash
-
+```bash
 flutter run
+```
 👤 Author
-[Nama Anda]
+[Muhammad Ibrahim $ Zalfa Az Zahra]
 
 Mahasiswa [Jurusan/Kampus Anda]
 
@@ -60,11 +63,3 @@ Dibuat untuk memenuhi tugas mata kuliah UI/UX Design.
 
 
 ---
-
-### Langkah Terakhir: Upload README
-Setelah membuat file README di atas, jangan lupa upload lagi perubahannya ke GitHub:
-
-```bash
-git add README.md
-git commit -m "Docs: Add README file"
-git push
