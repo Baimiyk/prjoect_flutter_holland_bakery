@@ -33,7 +33,7 @@ Clone repository ini:
 
 
 ```bash
-git clone [https://github.com/USERNAME/flutter-dashboard-ui.git](https://github.com/USERNAME/flutter-dashboard-ui.git)
+git clone [https://github.com/Baimiyk/flutter-dashboard-ui.git](https://github.com/Baimiyk/flutter-dashboard-ui.git)
 ```
 Masuk ke folder project:
 
