@@ -1,16 +1,70 @@
-# holland_bakery
+# 📱 Dashboard UI Implementation (Flutter)
 
-A new Flutter project.
+Project ini adalah implementasi tugas mata kuliah UI/UX, mengubah desain *High-Fidelity* dari Figma menjadi aplikasi mobile menggunakan Flutter.
 
-## Getting Started
+## 🎨 Design Preview
+*(Nanti setelah coding selesai, Anda bisa screenshot aplikasi dan taruh gambarnya di sini)*
+> Implementasi dashboard modern dengan fokus pada *clean layout* dan *usability*.
 
-This project is a starting point for a Flutter application.
+## ✨ Fitur Utama
+- **Slicing UI:** Konversi presisi dari Figma ke Flutter code.
+- **Custom Assets:** Penggunaan icon SVG dan font kustom.
+- **Responsive Layout:** Menggunakan Grid dan Flex untuk berbagai ukuran layar.
+- **Modular Code:** Struktur folder yang rapi (memisahkan screens, widgets, dan core).
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tech Stack
+- **Framework:** [Flutter](https://flutter.dev/)
+- **Language:** Dart
+- **Design Tool:** Figma
+- **Packages:**
+    - `flutter_svg` (untuk rendering icon vektor)
+    - `google_fonts` (untuk tipografi)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 📂 Struktur Project
+```text
+lib/
+├── core/           # Konfigurasi warna & tema global
+├── screens/        # Halaman aplikasi (Dashboard, Profile, dll)
+├── widgets/        # Komponen UI yang reusable (Card, Chart, Menu)
+└── main.dart       # Entry point
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+##🚀 Cara Menjalankan (Installation)
+Clone repository ini:
+
+Bash
+
+git clone [https://github.com/USERNAME/flutter-dashboard-ui.git](https://github.com/USERNAME/flutter-dashboard-ui.git)
+Masuk ke folder project:
+
+Bash
+
+cd flutter-dashboard-ui
+Install dependencies:
+
+Bash
+
+flutter pub get
+Jalankan aplikasi:
+
+Bash
+
+flutter run
+👤 Author
+[Nama Anda]
+
+Mahasiswa [Jurusan/Kampus Anda]
+
+Interest: UI/UX Design, Mobile Development
+
+Dibuat untuk memenuhi tugas mata kuliah UI/UX Design.
+
+
+---
+
+### Langkah Terakhir: Upload README
+Setelah membuat file README di atas, jangan lupa upload lagi perubahannya ke GitHub:
+
+```bash
+git add README.md
+git commit -m "Docs: Add README file"
+git push
