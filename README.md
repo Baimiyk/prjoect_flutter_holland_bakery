@@ -27,7 +27,7 @@ lib/
 ├── screens/        # Halaman aplikasi (Dashboard, Profile, dll)
 ├── widgets/        # Komponen UI yang reusable (Card, Chart, Menu)
 └── main.dart       # Entry point
-
+```
 ##🚀 Cara Menjalankan (Installation)
 Clone repository ini:
 
