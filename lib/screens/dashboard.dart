@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-// Import widget product card yang tadi dibuat
-import '../widgets/product_card.dart'; // Sesuaikan path import
+// Import widget buatan kita
+import '../widgets/product_card.dart';
+import '../widgets/bottom_nav.dart'; // Pastikan nama file ini sesuai
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +195,6 @@ class Dashboard extends StatelessWidget {
                         ],
                       ),
                     ),
-                    // Tambahkan widget Image.asset di sini untuk gambar HP
                   ],
                 ),
               ),
@@ -222,19 +222,17 @@ class Dashboard extends StatelessWidget {
               const SizedBox(height: 25),
 
               // ================= PRODUCT GRID =================
-              // Menggunakan GridView di dalam SingleChildScrollView butuh shrinkWrap & physics
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 6, // Jumlah produk dummy
+                itemCount: 6,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 Kolom
-                  childAspectRatio: 0.75, // Rasio tinggi:lebar kartu
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.75,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                 ),
                 itemBuilder: (context, index) {
-                  // Data Dummy
                   final titles = [
                     "Cromboloni Sweet Cheese",
                     "Danish Chocolate",
@@ -255,8 +253,7 @@ class Dashboard extends StatelessWidget {
                   return ProductCard(
                     title: titles[index],
                     price: prices[index],
-                    imagePath:
-                        "assets/images/roti${index + 1}.png", // Pastikan nama file: roti1.png, roti2.png dst
+                    imagePath: "assets/images/roti${index + 1}.png",
                     likes: "3k likes",
                   );
                 },
@@ -265,29 +262,15 @@ class Dashboard extends StatelessWidget {
           ),
         ),
       ),
-      // Custom Bottom Nav agar mirip gambar
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: const Color(0xFFFF5621),
-        unselectedItemColor: Colors.black54,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storefront_outlined),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_offer_outlined),
-            label: "Promo",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined),
-            label: "Orders",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "Account",
-          ),
-        ],
+
+      // ================= CUSTOM NAVBAR =================
+      // Kita panggil widget yang sudah dipisah tadi di sini
+      bottomNavigationBar: CustomBottomNav(
+        selectedIndex: 0,
+        onTap: (index) {
+          // Logika pindah halaman nanti di sini
+          print("Menu $index diklik");
+        },
       ),
     );
   }
@@ -302,7 +285,6 @@ class Dashboard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10),
-            // image: DecorationImage(...) // Foto toko
           ),
           child: const Icon(Icons.store, color: Colors.grey),
         ),
