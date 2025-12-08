@@ -52,7 +52,7 @@ Jalankan aplikasi:
 ```bash
 flutter run
 ```
-👤 Author
+## 👤 Author
 [Muhammad Ibrahim $ Zalfa Az Zahra]
 
 Mahasiswa [Jurusan/Kampus Anda]
