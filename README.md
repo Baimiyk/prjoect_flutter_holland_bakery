@@ -28,7 +28,7 @@ lib/
 ├── widgets/        # Komponen UI yang reusable (Card, Chart, Menu)
 └── main.dart       # Entry point
 ```
-##🚀 Cara Menjalankan (Installation)
+## 🚀 Cara Menjalankan (Installation)
 Clone repository ini:
 
 
