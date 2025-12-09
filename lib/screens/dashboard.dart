@@ -171,15 +171,18 @@ class DashboardScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 140,
                 decoration: BoxDecoration(
-                  color: const Color(0xFF1E4595), // Warna biru banner
                   borderRadius: BorderRadius.circular(15),
-                  // image: DecorationImage(...) // Aktifkan jika sudah ada gambar banner
+                  image: const DecorationImage(
+                    image: AssetImage("assets/images/promo1.png"),
+                    fit: BoxFit.cover, // biar gambar full & gak stretch
+                  ),
                 ),
+                // Kalau mau tetep ada teks "POTONGAN ONGKIR" di atas gambar:
                 child: Stack(
                   children: [
                     Positioned(
                       right: 20,
-                      top: 40,
+                      top: 30,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: const [
@@ -189,7 +192,14 @@ class DashboardScreen extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 22,
+                              shadows: [
+                                Shadow(
+                                  offset: Offset(2, 2),
+                                  blurRadius: 4,
+                                  color: Colors.black45,
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -250,13 +260,12 @@ class DashboardScreen extends StatelessWidget {
                     "Rp 46.000",
                   ];
                   final images = [
-                    "assets/roti/croco.jpg",
-                    "assets/roti/croke.jpg",
-                    "assets/roti/danrai.jpg",
-                    "assets/roti/danke.jpg",
-                    "assets/roti/danco.jpg",
-                    "assets/roti/romeco.jpg",
-                    "assets/roti/smobe.jpg",
+                    "assets/images/croke.jpg",
+                    "assets/images/danco.jpg",
+                    "assets/images/danke.jpg",
+                    "assets/images/danrai.jpg",
+                    "assets/images/romeco.jpg",
+                    "assets/images/smobe.jpg",
                   ];
 
                   return ProductCard(
@@ -288,14 +297,14 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildStoreItem(String name, String info, String rating) {
     return Row(
       children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: Image.asset(
+            "assets/images/store.png",
+            width: 60,
+            height: 60,
+            fit: BoxFit.cover,
           ),
-          child: const Icon(Icons.store, color: Colors.grey),
         ),
         const SizedBox(width: 12),
         Expanded(
