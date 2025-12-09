@@ -24,7 +24,7 @@ class DashboardScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        "Hi, Lixt",
+                        "Hi, Fufufafa!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -242,18 +242,27 @@ class DashboardScreen extends StatelessWidget {
                     "Smoked Beef Cheese",
                   ];
                   final prices = [
-                    "Rp 13,700",
-                    "Rp 13,700",
-                    "Rp 15,800",
-                    "Rp 13,200",
-                    "Rp 14,000",
-                    "Rp 46,000",
+                    "Rp 13.700",
+                    "Rp 13.700",
+                    "Rp 15.800",
+                    "Rp 13.200",
+                    "Rp 14.000",
+                    "Rp 46.000",
+                  ];
+                  final images = [
+                    "assets/roti/croco.jpg",
+                    "assets/roti/croke.jpg",
+                    "assets/roti/danrai.jpg",
+                    "assets/roti/danke.jpg",
+                    "assets/roti/danco.jpg",
+                    "assets/roti/romeco.jpg",
+                    "assets/roti/smobe.jpg",
                   ];
 
                   return ProductCard(
                     title: titles[index],
                     price: prices[index],
-                    imagePath: "assets/images/roti${index + 1}.png",
+                    imagePath: images[index],
                     likes: "3k likes",
                   );
                 },
