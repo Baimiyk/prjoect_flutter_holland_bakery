@@ -118,10 +118,7 @@ class DashboardScreen extends StatelessWidget {
                     Expanded(
                       child: Row(
                         children: [
-                          const Icon(
-                            Icons.verified_user_outlined,
-                            color: Colors.green,
-                          ),
+                          const Icon(Icons.stars, color: Colors.green),
                           const SizedBox(width: 8),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,35 +175,6 @@ class DashboardScreen extends StatelessWidget {
                   ),
                 ),
                 // Kalau mau tetep ada teks "POTONGAN ONGKIR" di atas gambar:
-                child: Stack(
-                  children: [
-                    Positioned(
-                      right: 20,
-                      top: 30,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const [
-                          Text(
-                            "POTONGAN\nONGKIR",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 22,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(2, 2),
-                                  blurRadius: 4,
-                                  color: Colors.black45,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ),
 
               const SizedBox(height: 25),
