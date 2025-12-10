@@ -22,17 +22,17 @@ class DashboardScreen extends StatelessWidget {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
+                    children: const [
+                      Text(
                         "Hi, Fufufafa!",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      SizedBox(height: 4),
                       Row(
-                        children: const [
+                        children: [
                           Icon(
                             Icons.location_on,
                             color: Color(0xFFFF5621),
@@ -48,15 +48,31 @@ class DashboardScreen extends StatelessWidget {
                     ],
                   ),
                   Row(
-                    children: const [
-                      Icon(
-                        Icons.shopping_cart_outlined,
-                        color: Color(0xFFFF5621),
+                    children: [
+                      // Keranjang bisa diklik
+                      InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Color(0xFFFF5621),
+                          ),
+                        ),
                       ),
-                      SizedBox(width: 15),
-                      Icon(
-                        Icons.notifications_outlined,
-                        color: Color(0xFFFF5621),
+                      const SizedBox(width: 15),
+                      // Notifikasi bisa diklik
+                      InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.notifications_outlined,
+                            color: Color(0xFFFF5621),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -69,36 +85,48 @@ class DashboardScreen extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: Container(
-                      height: 45,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey.shade300),
-                        borderRadius: BorderRadius.circular(30),
+                    child: InkWell(
+                      // ← BUNGKUS DI SINI
+                      borderRadius: BorderRadius.circular(
+                        30,
+                      ), // biar ripple ikut sudut
+                      onTap: () {},
+                      child: Container(
+                        height: 45,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade300),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.search, color: Colors.grey),
+                            SizedBox(width: 10),
+                            Text(
+                              "Search for stores and cakes",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
                       ),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.search, color: Colors.grey),
-                          SizedBox(width: 10),
-                          Text(
-                            "Search for stores and cakes",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
+                    ), // ← TUTUP DI SINI
                   ),
                   const SizedBox(width: 10),
-                  Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: const Color(0xFFFF5621)),
-                    ),
-                    child: const Icon(
-                      Icons.favorite_border,
-                      color: Color(0xFFFF5621),
+                  // Icon hati bisa diklik
+                  InkWell(
+                    borderRadius: BorderRadius.circular(25),
+                    onTap: () {},
+                    child: Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: const Color(0xFFFF5621)),
+                      ),
+                      child: const Icon(
+                        Icons.favorite_border,
+                        color: Color(0xFFFF5621),
+                      ),
                     ),
                   ),
                 ],
@@ -115,46 +143,75 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
+                    // BAGIAN KIRI: SILVER (bisa diklik sendiri)
                     Expanded(
-                      child: Row(
-                        children: [
-                          const Icon(Icons.stars, color: Colors.green),
-                          const SizedBox(width: 8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 12,
+                          ),
+                          child: Row(
                             children: const [
-                              Text(
-                                "Silver",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "0 point",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Color(0xFFFF5621),
-                                ),
+                              Icon(Icons.stars, color: Colors.green),
+                              SizedBox(width: 8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Silver",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    "0 point",
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Color(0xFFFF5621),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
+
+                    // Garis pemisah
                     Container(
                       width: 1,
-                      height: 30,
+                      height: 40,
                       color: Colors.grey.shade300,
-                    ), // Garis pemisah
+                    ),
+
+                    // BAGIAN KANAN: GIFT COUPON (bisa diklik sendiri)
                     Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(Icons.card_giftcard, color: Colors.green),
-                          SizedBox(width: 8),
-                          Text(
-                            "Gift Coupon",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12),
+                        onTap: () {
+                          // nanti bisa buka halaman coupon
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 12,
                           ),
-                        ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.card_giftcard, color: Colors.green),
+                              SizedBox(width: 8),
+                              Text(
+                                "Gift Coupon",
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -164,17 +221,20 @@ class DashboardScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // ================= BANNER =================
-              Container(
-                width: double.infinity,
-                height: 140,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/promo1.png"),
-                    fit: BoxFit.cover, // biar gambar full & gak stretch
+              InkWell(
+                borderRadius: BorderRadius.circular(15),
+                onTap: () {},
+                child: Container(
+                  width: double.infinity,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/promo1.png"),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-                // Kalau mau tetep ada teks "POTONGAN ONGKIR" di atas gambar:
               ),
 
               const SizedBox(height: 25),
@@ -186,12 +246,14 @@ class DashboardScreen extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               _buildStoreItem(
+                context,
                 "Holland Bakery Banyumanik",
                 "3.2 km | 12-25 mins",
                 "4.8",
               ),
               const SizedBox(height: 15),
               _buildStoreItem(
+                context,
                 "Holland Bakery Kedung Mundu",
                 "5.5 km | 12-40 mins",
                 "4.6",
@@ -244,6 +306,8 @@ class DashboardScreen extends StatelessWidget {
                   );
                 },
               ),
+
+              const SizedBox(height: 80), // biar ga ketutup navbar
             ],
           ),
         ),
@@ -262,53 +326,62 @@ class DashboardScreen extends StatelessWidget {
   }
 
   // Widget kecil untuk Item Toko
-  Widget _buildStoreItem(String name, String info, String rating) {
-    return Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.asset(
-            "assets/images/store.png",
-            width: 60,
-            height: 60,
-            fit: BoxFit.cover,
+  Widget _buildStoreItem(
+    BuildContext context,
+    String name,
+    String info,
+    String rating,
+  ) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(10),
+      onTap: () {},
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.asset(
+              "assets/images/store.png",
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                info,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
-              ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  const Icon(Icons.star, size: 12, color: Colors.orange),
-                  const SizedBox(width: 2),
-                  Text(
-                    rating,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  info,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    const Icon(Icons.star, size: 12, color: Colors.orange),
+                    const SizedBox(width: 2),
+                    Text(
+                      rating,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
