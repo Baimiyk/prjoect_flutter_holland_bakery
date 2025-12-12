@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Pastikan package ini ada di pubspec.yaml
-import 'screens/dashboard.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         // Warna primary default
         primarySwatch: Colors.orange,
       ),
-      home: const DashboardScreen(), // Panggil Dashboard di sini
+      home: const SplashScreen(), // Panggil Dashboard di sini
     );
   }
 }
