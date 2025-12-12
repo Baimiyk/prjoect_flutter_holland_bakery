@@ -1,3 +1,5 @@
+// product_card.dart → VERSI SESUAI PERMINTAANMU (title & harga fleksibel, likes tetap di bawah)
+
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
@@ -5,6 +7,9 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String imagePath;
   final String likes;
+  final VoidCallback? onTap;
+  final VoidCallback? onLikeTap;
+  final VoidCallback? onAddTap;
 
   const ProductCard({
     super.key,
@@ -12,109 +17,126 @@ class ProductCard extends StatelessWidget {
     required this.price,
     required this.imagePath,
     required this.likes,
+    this.onTap,
+    this.onLikeTap,
+    this.onAddTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15), // Sudut membulat
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+    return Material(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(15),
+      elevation: 2,
+      shadowColor: Colors.grey.withOpacity(0.2),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(15),
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.grey.shade200),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 1. Gambar Produk
-          Expanded(
-            child: ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
-              child: Image.asset(
-                imagePath,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                // Error builder agar tidak crash jika gambar belum ada
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: Colors.grey[200],
-                  child: const Icon(Icons.image),
+          child: Column(
+            children: [
+              // GAMBAR
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                ),
+                child: Image.asset(
+                  imagePath,
+                  height: 100,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-          ),
 
-          // 2. Detail Produk
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                  ),
-                ),
-                const SizedBox(height: 8),
-
-                // 3. Baris Like & Tombol Tambah
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.favorite_border,
-                          size: 16,
-                          color: Colors.grey,
+              // INFO SECTION
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // TITLE — fleksibel, max 3 baris
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12,
+                          height: 1.3,
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          likes,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            color: Colors.grey,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      // HARGA — posisinya mengikuti title secara alami
+                      Text(
+                        price,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xFF222222),
+                        ),
+                      ),
+
+                      // Dorong likes ke paling bawah
+                      const Spacer(),
+
+                      // LIKES + TOMBOL ADD — selalu di paling bawah
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              InkWell(
+                                onTap: onLikeTap,
+                                child: const Icon(
+                                  Icons.favorite_border,
+                                  color: Color(0xFFFF5621),
+                                  size: 20,
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                likes,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey.shade600,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                    // Tombol Tambah (Lingkaran Oranye)
-                    Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFF5621), // AppColors.primary
-                        shape: BoxShape.circle,
+
+                          Material(
+                            color: const Color(0xFFFF5621),
+                            shape: const CircleBorder(),
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(50),
+                              onTap: onAddTap,
+                              child: const Padding(
+                                padding: EdgeInsets.all(8),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
