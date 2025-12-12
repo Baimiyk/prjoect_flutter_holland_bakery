@@ -21,7 +21,7 @@ class DashboardHeader extends StatelessWidget {
       elevation: 0,
       pinned: false,
       floating: false,
-      expandedHeight: 50,
+      expandedHeight: 70,
       flexibleSpace: Container(
         decoration: const BoxDecoration(color: Colors.white),
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
@@ -40,7 +40,7 @@ class DashboardHeader extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 0),
                 Row(
                   children: [
                     const Icon(
@@ -48,19 +48,16 @@ class DashboardHeader extends StatelessWidget {
                       color: Color(0xFFFF5621),
                       size: 14,
                     ),
-                    const SizedBox(width: 4),
+                    const SizedBox(width: 0),
                     Text(
                       location,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
+                      style: const TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ],
                 ),
               ],
             ),
-            
+
             // Action Icons
             Row(
               children: [
@@ -92,10 +89,7 @@ class DashboardHeader extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            icon,
-            color: const Color(0xFFFF5621),
-          ),
+          child: Icon(icon, color: const Color(0xFFFF5621)),
         ),
       ),
     );
