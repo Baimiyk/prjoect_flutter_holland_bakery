@@ -16,64 +16,58 @@ class DashboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      pinned: false,
-      floating: false,
-      expandedHeight: 70,
-      flexibleSpace: Container(
-        decoration: const BoxDecoration(color: Colors.white),
-        padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // User Info
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Hi, $userName!",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+    return Container(
+      height: 70,
+      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+      decoration: const BoxDecoration(color: Colors.white),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // ===== USER INFO =====
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Hi, $userName!",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on,
+                    color: Color(0xFFFF5621),
+                    size: 14,
                   ),
-                ),
-                const SizedBox(height: 0),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: Color(0xFFFF5621),
-                      size: 14,
-                    ),
-                    const SizedBox(width: 0),
-                    Text(
-                      location,
-                      style: const TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  const SizedBox(width: 4),
+                  Text(
+                    location,
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ],
+          ),
 
-            // Action Icons
-            Row(
-              children: [
-                _buildIconButton(
-                  icon: Icons.shopping_cart_outlined,
-                  onTap: onCartTap ?? () {},
-                ),
-                const SizedBox(width: 15),
-                _buildIconButton(
-                  icon: Icons.notifications_outlined,
-                  onTap: onNotificationTap ?? () {},
-                ),
-              ],
-            ),
-          ],
-        ),
+          // ===== ACTION ICONS =====
+          Row(
+            children: [
+              _buildIconButton(
+                icon: Icons.shopping_cart_outlined,
+                onTap: onCartTap ?? () {},
+              ),
+              const SizedBox(width: 15),
+              _buildIconButton(
+                icon: Icons.notifications_outlined,
+                onTap: onNotificationTap ?? () {},
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -88,7 +82,7 @@ class DashboardHeader extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Icon(icon, color: const Color(0xFFFF5621)),
         ),
       ),

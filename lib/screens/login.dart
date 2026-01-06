@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dashboard.dart'; // Pastikan import ini benar
+import 'main_screen.dart'; // Pastikan import ini benar
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Navigasi ke Dashboard
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const DashboardScreen(),
+                        builder: (context) => const MainScreen(),
                       ),
                     );
                   },

@@ -6,14 +6,16 @@ class CustomBottomNav extends StatelessWidget {
 
   const CustomBottomNav({
     super.key,
-    this.selectedIndex = 0, // Default tab aktif adalah 0 (Home)
+    this.selectedIndex = 0,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // Dekorasi bayangan diletakkan di container pelindung
       decoration: BoxDecoration(
+        color: Colors.transparent, // Background transparan agar shadow terlihat
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
@@ -22,38 +24,46 @@ class CustomBottomNav extends StatelessWidget {
           ),
         ],
       ),
-      child: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: onTap,
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFFFF5621), // Warna Oranye
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        selectedLabelStyle: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
+      // ClipRRect bertugas memotong sudut menjadi melengkung
+      child: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(30),
+        ), // Lengkungan 30px
+        child: BottomNavigationBar(
+          currentIndex: selectedIndex,
+          onTap: onTap,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.white,
+          // Warna saat aktif (Orange)
+          selectedItemColor: const Color(0xFFFF5621),
+          // Warna saat tidak aktif (Abu-abu)
+          unselectedItemColor: Colors.grey,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          selectedLabelStyle: const TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: const TextStyle(fontSize: 12),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.storefront_outlined),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.local_offer_outlined),
+              label: "Promo",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_long_outlined),
+              label: "Orders",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline),
+              label: "Account",
+            ),
+          ],
         ),
-        unselectedLabelStyle: const TextStyle(fontSize: 12),
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.storefront_outlined),
-            label: "Home",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.local_offer_outlined),
-            label: "Promo",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_long_outlined),
-            label: "Orders",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: "Account",
-          ),
-        ],
       ),
     );
   }

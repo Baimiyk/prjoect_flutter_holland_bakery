@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import '../widgets/product_card.dart';
-import '../widgets/bottom_nav.dart';
 import '../widgets/header.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/membership_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/store.dart';
+
+// PERBAIKAN 1: Pastikan nama file sesuai dengan yang Anda buat sebelumnya
+import 'product.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -14,19 +16,24 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
+
+      // Menggunakan SafeArea agar tidak tertutup notch HP
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            // Header
-            const DashboardHeader(
-              userName: "Fufufafa",
-              location: "Jl. Prof. Soedarto, Tembalang",
-            ),
-
-            // Search Bar
+            // ================== 1. HEADER ==================
+            const SliverToBoxAdapter(
+              // Widget biasa (Container/Column) wajib dibungkus SliverToBoxAdapter
+              child: DashboardHeader(
+                userName: "Fufufafa",
+                location: "Jl. Prof. Soedarto, Tembalang",
+              ),
+            ), // <--- PERBAIKAN 2: Pastikan kurung tutup SliverToBoxAdapter DI SINI
+            // ================== 2. SEARCH BAR ==================
+            // SliverPersistentHeader harus menjadi 'saudara' (sejajar), BUKAN anak dari SliverToBoxAdapter
             SliverPersistentHeader(pinned: true, delegate: SearchBarDelegate()),
 
-            // Content
+            // ================== 3. KONTEN (Membership, Promo, Toko) ==================
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               sliver: SliverList(
@@ -43,17 +50,14 @@ class DashboardScreen extends StatelessWidget {
                   const SizedBox(height: 15),
 
                   // === STORES NEARBY SECTION ===
-
-                  // Garis pembatas atas (dari ujung ke ujung)
                   Divider(color: Colors.grey.shade300, thickness: 3, height: 3),
                   const SizedBox(height: 15),
 
-                  // Judul "Stores Nearby" — tebal banget
                   const Text(
                     "Stores Nearby",
                     style: TextStyle(
                       fontSize: 18,
-                      fontWeight: FontWeight.w900, // paling tebal!
+                      fontWeight: FontWeight.w900,
                       letterSpacing: 0.5,
                     ),
                   ),
@@ -81,14 +85,13 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-                  // Garis pembatas bawah (dari ujung ke ujung)
                   Divider(color: Colors.grey.shade300, thickness: 3, height: 3),
                   const SizedBox(height: 1),
                 ]),
               ),
             ),
 
-            // Product Grid
+            // ================== 4. GRID PRODUK ==================
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               sliver: SliverGrid(
@@ -107,7 +110,19 @@ class DashboardScreen extends StatelessWidget {
                     price: product['price']!,
                     imagePath: product['image']!,
                     likes: "3k likes",
-                    onTap: () {},
+                    // Navigasi ke Detail Produk
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProductDetailScreen(
+                            title: product['title']!,
+                            price: product['price']!,
+                            imagePath: product['image']!,
+                          ),
+                        ),
+                      );
+                    },
                     onLikeTap: () {},
                     onAddTap: () {},
                   );
@@ -115,14 +130,15 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
 
+            // Padding bawah agar item terakhir tidak tertutup layar
             const SliverPadding(padding: EdgeInsets.only(bottom: 80)),
           ],
         ),
       ),
-      bottomNavigationBar: CustomBottomNav(selectedIndex: 0, onTap: (index) {}),
     );
   }
 
+  // Data Dummy Produk
   List<Map<String, String>> _getProducts() {
     return [
       {
