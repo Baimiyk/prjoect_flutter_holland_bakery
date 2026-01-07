@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
       color: Colors.white,
       borderRadius: BorderRadius.circular(15),
       elevation: 2,
-      shadowColor: Colors.grey.withOpacity(0.2),
+      shadowColor: Colors.grey.withValues(alpha:0.2),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: onTap,

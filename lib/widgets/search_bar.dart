@@ -29,7 +29,7 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.8),
+            color: Colors.grey.withValues(alpha:0.8),
             spreadRadius: 0,
             blurRadius: 5,
             offset: const Offset(0, 2),
