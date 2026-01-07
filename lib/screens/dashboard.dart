@@ -5,9 +5,8 @@ import '../widgets/search_bar.dart';
 import '../widgets/membership_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/store.dart';
-
-// PERBAIKAN 1: Pastikan nama file sesuai dengan yang Anda buat sebelumnya
 import 'product.dart';
+import 'store.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -23,14 +22,13 @@ class DashboardScreen extends StatelessWidget {
           slivers: [
             // ================== 1. HEADER ==================
             const SliverToBoxAdapter(
-              // Widget biasa (Container/Column) wajib dibungkus SliverToBoxAdapter
               child: DashboardHeader(
                 userName: "Fufufafa",
                 location: "Jl. Prof. Soedarto, Tembalang",
               ),
-            ), // <--- PERBAIKAN 2: Pastikan kurung tutup SliverToBoxAdapter DI SINI
+            ),
+
             // ================== 2. SEARCH BAR ==================
-            // SliverPersistentHeader harus menjadi 'saudara' (sejajar), BUKAN anak dari SliverToBoxAdapter
             SliverPersistentHeader(pinned: true, delegate: SearchBarDelegate()),
 
             // ================== 3. KONTEN (Membership, Promo, Toko) ==================
@@ -70,7 +68,21 @@ class DashboardScreen extends StatelessWidget {
                     info: "3.2 km | 12-25 mins",
                     rating: "4.9",
                     imagePath: "assets/images/store.png",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StoreScreen(
+                            storeName: "Holland Bakery Banyumanik",
+                            storeAddress:
+                                "Ruko Taman Setiabudi A4, Srondol Wetan, Wetan Kec. Banyumanik, Kota Semarang, Jawa Tengah 50263",
+                            storeInfo: "3.2 km | 12-25 mins",
+                            storeRating: "4.9",
+                            storeImage: "assets/images/store.png",
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 12),
 
@@ -81,7 +93,21 @@ class DashboardScreen extends StatelessWidget {
                     info: "5.5 km | 12-40 mins",
                     rating: "4.9",
                     imagePath: "assets/images/store.png",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const StoreScreen(
+                            storeName: "Holland Bakery Kedung Mundu",
+                            storeAddress:
+                                "Gaia Residence Semarang Ruko, Kedung Mundu, Kota Semarang, Jawa Tengah",
+                            storeInfo: "5.5 km | 12-40 mins",
+                            storeRating: "4.9",
+                            storeImage: "assets/images/store.png",
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 15),
 
