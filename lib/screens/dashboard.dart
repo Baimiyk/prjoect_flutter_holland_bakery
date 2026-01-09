@@ -5,8 +5,10 @@ import '../widgets/search_bar.dart';
 import '../widgets/membership_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/store.dart';
+
+// Import Screen Tujuan
 import 'product.dart';
-import 'store.dart';
+import 'store.dart'; // Pastikan Anda sudah membuat file ini, atau sesuaikan namanya
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -71,15 +73,46 @@ class DashboardScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const StoreScreen(
-                            storeName: "Holland Bakery Banyumanik",
-                            storeAddress:
-                                "Ruko Taman Setiabudi A4, Srondol Wetan, Wetan Kec. Banyumanik, Kota Semarang, Jawa Tengah 50263",
-                            storeInfo: "3.2 km | 12-25 mins",
-                            storeRating: "4.9",
-                            storeImage: "assets/images/store.png",
-                          ),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                              ) => const StoreScreen(
+                                storeName:
+                                    "Holland Bakery Banyumanik", // Sesuaikan nama tokonya
+                                storeAddress: "Ruko Taman Setiabudi A4...",
+                                storeInfo: "3.2 km | 12-25 mins",
+                                storeRating: "4.9",
+                                storeImage: "assets/images/store.png",
+                              ),
+
+                          // 1. DURASI DIPERLAMBAT (800ms)
+                          transitionDuration: const Duration(milliseconds: 800),
+                          reverseTransitionDuration: const Duration(
+                            milliseconds: 800,
+                          ), // Saat kembali juga smooth
+
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0); // Dari Kanan
+                                const end = Offset.zero;
+
+                                // 2. KURVA LEBIH LEMBUT (Smooth Start & End)
+                                // easeInOutCubic memberikan efek "mengayun" yang sangat halus
+                                const curve = Curves.easeInOutCubic;
+
+                                var tween = Tween(
+                                  begin: begin,
+                                  end: end,
+                                ).chain(CurveTween(curve: curve));
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              },
                         ),
                       );
                     },
@@ -96,15 +129,46 @@ class DashboardScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const StoreScreen(
-                            storeName: "Holland Bakery Kedung Mundu",
-                            storeAddress:
-                                "Gaia Residence Semarang Ruko, Kedung Mundu, Kota Semarang, Jawa Tengah",
-                            storeInfo: "5.5 km | 12-40 mins",
-                            storeRating: "4.9",
-                            storeImage: "assets/images/store.png",
-                          ),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (
+                                context,
+                                animation,
+                                secondaryAnimation,
+                              ) => const StoreScreen(
+                                storeName:
+                                    "Holland Bakery Banyumanik", // Sesuaikan nama tokonya
+                                storeAddress: "Ruko Taman Setiabudi A4...",
+                                storeInfo: "3.2 km | 12-25 mins",
+                                storeRating: "4.9",
+                                storeImage: "assets/images/store.png",
+                              ),
+
+                          // 1. DURASI DIPERLAMBAT (800ms)
+                          transitionDuration: const Duration(milliseconds: 800),
+                          reverseTransitionDuration: const Duration(
+                            milliseconds: 800,
+                          ), // Saat kembali juga smooth
+
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(1.0, 0.0); // Dari Kanan
+                                const end = Offset.zero;
+
+                                // 2. KURVA LEBIH LEMBUT (Smooth Start & End)
+                                // easeInOutCubic memberikan efek "mengayun" yang sangat halus
+                                const curve = Curves.easeInOutCubic;
+
+                                var tween = Tween(
+                                  begin: begin,
+                                  end: end,
+                                ).chain(CurveTween(curve: curve));
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              },
                         ),
                       );
                     },
@@ -138,14 +202,37 @@ class DashboardScreen extends StatelessWidget {
                     likes: "3k likes",
                     // Navigasi ke Detail Produk
                     onTap: () {
+                      // ANIMASI TRANSISI: SLIDE DARI BAWAH (Slide Up)
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => ProductDetailScreen(
-                            title: product['title']!,
-                            price: product['price']!,
-                            imagePath: product['image']!,
-                          ),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  ProductDetailScreen(
+                                    title: product['title']!,
+                                    price: product['price']!,
+                                    imagePath: product['image']!,
+                                  ),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                                const begin = Offset(
+                                  0.0,
+                                  1.0,
+                                ); // Muncul dari Bawah
+                                const end = Offset.zero;
+                                const curve = Curves.easeInOut;
+
+                                var tween = Tween(
+                                  begin: begin,
+                                  end: end,
+                                ).chain(CurveTween(curve: curve));
+
+                                return SlideTransition(
+                                  position: animation.drive(tween),
+                                  child: child,
+                                );
+                              },
+                          transitionDuration: const Duration(milliseconds: 500),
                         ),
                       );
                     },

@@ -10,68 +10,80 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  // Variabel transparansi
-  double _logoOpacity = 0.0; // Logo mulai dari tidak terlihat
-  double _lottieOpacity = 1.0; // Animasi mulai dari terlihat jelas
+  double _lottieOpacity = 1.0;
+  double _logoOpacity = 0.0;
+  double _logoOffsetX = 0.0;
 
   @override
   void initState() {
     super.initState();
+    _startAnimationSequence();
+  }
 
-    // Tahap 1: Biarkan animasi main dulu selama 2 detik
-    Future.delayed(const Duration(seconds: 2), () {
-      // Cek mounted agar aman jika user keluar aplikasi sebelum 2 detik
-      if (mounted) {
-        setState(() {
-          _logoOpacity = 1.0; // Logo perlahan MUNCUL
-          _lottieOpacity =
-              0.0; // Animasi perlahan HILANG (jadi background putih)
-        });
-      }
+  void _startAnimationSequence() async {
+    // TAHAP 1: Mainkan Lottie (Normal)
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+
+    // TAHAP 2: Swap ke Logo
+    setState(() {
+      _lottieOpacity = 0.0;
+      _logoOpacity = 1.0;
     });
 
-    // Tahap 2: Pindah ke Login setelah transisi selesai (total sekitar 4.5 detik)
-    Future.delayed(const Duration(milliseconds: 4500), () {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-      }
+    // TAHAP 3: Tunggu Logo Muncul (Normal 1 detik)
+    await Future.delayed(const Duration(milliseconds: 1000));
+    if (!mounted) return;
+
+    // TAHAP 4: LOGO GESER KIRI
+    setState(() {
+      _logoOffsetX = -MediaQuery.of(context).size.width;
     });
+
+    // TAHAP 5: TUNGGU GESER SELESAI (KUNCI DI SINI)
+    // Logo butuh 500ms untuk geser. Kita tunggu pas 500ms.
+    await Future.delayed(const Duration(milliseconds: 500));
+    if (!mounted) return;
+
+    // TAHAP 6: MASUK LOGIN TANPA JEDA
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const LoginScreen(),
+
+        // PERBAIKAN: SET DURASI KE 0 (INSTAN)
+        // Kita tidak pakai FadeTransition lagi.
+        // Begitu logo hilang, Login Screen langsung MUNCUL (SNAP).
+        // Ini menghilangkan jeda layar putih kosong.
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
+
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // Tidak perlu animasi apa-apa, langsung return child
+          return child;
+        },
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // Tidak perlu MediaQuery lagi karena pakai SizedBox.expand
-
     return Scaffold(
-      backgroundColor: Colors.white, // Background dasar putih
+      backgroundColor: Colors.white,
       body: Stack(
-        // PERBAIKAN 2: Ini memastikan semua children yang tidak diposisikan khusus
-        // akan berada tepat di tengah-tengah stack.
         alignment: Alignment.center,
         children: [
-          // ================= LAYER 1: ANIMASI LOTTIE (BACKGROUND) =================
-          // PERBAIKAN 1: Gunakan SizedBox.expand untuk memaksa memenuhi layar
+          // LAYER 1: LOTTIE
           Center(
-            // 1. Gunakan Widget Center (Bukan Positioned/SizedBox)
             child: AnimatedOpacity(
               opacity: _lottieOpacity,
-              duration: const Duration(milliseconds: 1500),
+              duration: const Duration(milliseconds: 1000),
               child: Transform.scale(
-                scale:
-                    1.2, // 2. Perbesar skala di sini jika kurang besar (misal 1.5 atau 2.0)
+                scale: 1.2,
                 child: Lottie.asset(
                   'assets/lottie/splash_circle.json',
-                  // 3. Batasi lebar sesuai layar, tapi biarkan tingginya otomatis (aspect ratio asli)
                   width: MediaQuery.of(context).size.width,
-
-                  // 4. PENTING: Gunakan 'contain' agar lingkarannya tidak terpotong
                   fit: BoxFit.contain,
-
-                  // 5. Pastikan render dimulai dari tengah
-                  alignment: Alignment.center,
-
                   delegates: LottieDelegates(
                     values: [
                       ValueDelegate.color([
@@ -84,27 +96,52 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ),
 
-          // ================= LAYER 2: LOGO HOLLAND (FOREGROUND) =================
-          AnimatedOpacity(
-            opacity: _logoOpacity,
-            duration: const Duration(milliseconds: 1500), // Durasi muncul
-            curve: Curves.easeIn,
-            // Column ini akan otomatis di tengah karena alignment Stack di atas
-            child: Column(
-              mainAxisSize: MainAxisSize
-                  .min, // Penting agar column tidak memenuhi tinggi layar
-              children: [
-                Image.asset(
-                  'assets/images/logo.png',
-                  width:
-                      200, // PERBAIKAN 2: Ukuran logo diperkecil (sebelumnya 150)
-                ),
-                const SizedBox(height: 12), // Jarak sedikit dirapatkan
-              ],
+          // LAYER 2: LOGO
+          AnimatedTranslation(
+            offsetX: _logoOffsetX,
+            // Durasi Geser Fisik: 500ms (Cukup Cepat & Smooth)
+            duration: const Duration(milliseconds: 500),
+            child: AnimatedOpacity(
+              opacity: _logoOpacity,
+              duration: const Duration(milliseconds: 1000),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset('assets/images/logo.png', width: 200),
+                  const SizedBox(height: 12),
+                ],
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+// Helper Widget
+class AnimatedTranslation extends StatelessWidget {
+  final Widget child;
+  final double offsetX;
+  final Duration duration;
+
+  const AnimatedTranslation({
+    super.key,
+    required this.child,
+    required this.offsetX,
+    required this.duration,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 0, end: offsetX),
+      duration: duration,
+      curve: Curves.easeInOutCubic,
+      builder: (context, value, child) {
+        return Transform.translate(offset: Offset(value, 0), child: child);
+      },
+      child: child,
     );
   }
 }

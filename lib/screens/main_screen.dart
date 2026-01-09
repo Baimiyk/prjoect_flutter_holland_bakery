@@ -31,14 +31,36 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // BODY akan berubah sesuai index yang dipilih
-      body: _pages[_selectedIndex],
+      extendBody: true, // Agar navbar rounded terlihat transparan
+      // GANTI BODY BIASA DENGAN ANIMATED SWITCHER
+      body: AnimatedSwitcher(
+        // 1. Durasi transisi (400ms sangat pas untuk fade)
+        duration: const Duration(milliseconds: 400),
 
-      // BOTTOM NAVIGATION BAR memanggil widget Custom yang kita buat
+        // 2. Jenis Animasi: Fade (Bisa diganti Scale jika mau)
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: ScaleTransition(
+              // Zoom in sangat halus dari 98% ke 100%
+              scale: Tween<double>(begin: 0.98, end: 1.0).animate(animation),
+              child: child,
+            ),
+          );
+        },
+
+        // 3. PENTING: Bungkus halaman dengan Container yang punya Key
+        // Key ini memberitahu Flutter bahwa "Isinya sudah berubah, tolong dianimasikan!"
+        child: Container(
+          key: ValueKey<int>(_selectedIndex), // Key berubah sesuai index tab
+          color: Colors.white, // Pastikan ada background agar transisi rapi
+          child: _pages[_selectedIndex],
+        ),
+      ),
+
       bottomNavigationBar: CustomBottomNav(
-        selectedIndex:
-            _selectedIndex, // Kirim info: "Tombol nomor berapa yang harus oranye?"
-        onTap: _onItemTapped, // Kirim fungsi: "Apa yang terjadi kalau diklik?"
+        selectedIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

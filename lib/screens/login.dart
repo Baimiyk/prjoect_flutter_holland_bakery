@@ -158,16 +158,44 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 30),
 
-              // ================= TOMBOL SIGN IN (Orange Effect) =================
+              // ================= TOMBOL SIGN IN (ZOOM TRANSITION) =================
               SizedBox(
                 width: double.infinity,
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navigasi ke Dashboard
                     Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => const MainScreen(),
+                      PageRouteBuilder(
+                        // 1. Halaman Tujuan
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const MainScreen(),
+
+                        // 2. Durasi (800ms cukup untuk efek zoom yang jelas)
+                        transitionDuration: const Duration(milliseconds: 800),
+
+                        // 3. Jenis Animasi: ZOOM (Scale + Fade)
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                              // ANIMASI SCALE:
+                              // Mulai dari 0.5 (setengah ukuran) ke 1.0 (penuh)
+                              var scaleAnimation = Tween(begin: 0.5, end: 1.0)
+                                  .animate(
+                                    CurvedAnimation(
+                                      parent: animation,
+                                      // easeOutBack: Memberikan efek "membal" (pop) saat selesai
+                                      curve: Curves.easeOutBack,
+                                    ),
+                                  );
+
+                              // Gabungkan dengan Fade agar transisi tidak kasar
+                              return FadeTransition(
+                                opacity: animation,
+                                child: ScaleTransition(
+                                  scale: scaleAnimation,
+                                  child: child,
+                                ),
+                              );
+                            },
                       ),
                     );
                   },
