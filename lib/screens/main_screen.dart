@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav.dart'; // Import Navbar buatan kita
-import 'dashboard.dart'; // Import Dashboard
+import 'dashboard.dart';
+import 'account_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     const DashboardScreen(), // Index 0: Tampilkan Dashboard yang sudah dibuat
     const Center(child: Text("Halaman Promo")), // Index 1: Dummy Promo
     const Center(child: Text("Halaman Orders")), // Index 2: Dummy Orders
-    const Center(child: Text("Halaman Account")), // Index 3: Dummy Account
+    const AccountScreen(), // Index 3: Dummy Account
   ];
 
   void _onItemTapped(int index) {

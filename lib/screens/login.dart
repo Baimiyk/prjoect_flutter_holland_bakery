@@ -75,9 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     vertical: 16,
                   ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                      30,
-                    ), // Sudut membulat lebar
+                    borderRadius: BorderRadius.circular(30),
                     borderSide: const BorderSide(color: Colors.black12),
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -86,9 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
-                    borderSide: const BorderSide(
-                      color: Color(0xFFFF5621),
-                    ), // Orange saat diketik
+                    borderSide: const BorderSide(color: Color(0xFFFF5621)),
                   ),
                 ),
               ),
@@ -176,18 +172,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                   style: ButtonStyle(
-                    // LOGIC GANTI WARNA:
-                    // Default: Abu-abu (Colors.grey)
-                    // Ditekan (Pressed): Orange (0xFFFF5621)
                     backgroundColor: WidgetStateProperty.resolveWith<Color>((
                       Set<WidgetState> states,
                     ) {
                       if (states.contains(WidgetState.pressed)) {
                         return const Color(0xFFFF5621); // Orange saat ditekan
                       }
-                      return Colors
-                          .grey
-                          .shade400; // Abu-abu default (sesuai gambar)
+                      return Colors.grey.shade400; // Abu-abu default
                     }),
                     shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
@@ -236,16 +227,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Google Button
                   _socialButton(
                     onTap: () {},
-                    // Jika belum ada icon, pakai Huruf G warna warni atau Icon default
-                    child: const Text(
-                      "G",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
+                    child: Image.asset(
+                      'assets/icons/google.png',
+                      width: 24,
+                      height: 24,
                     ),
-                    // Nanti ganti child dengan: Image.asset('assets/icons/google.png', width: 24),
                   ),
 
                   const SizedBox(width: 20),
@@ -253,15 +239,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Facebook Button
                   _socialButton(
                     onTap: () {},
-                    child: const Text(
-                      "f",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent,
-                      ),
+                    child: Image.asset(
+                      'assets/icons/facebook.png',
+                      width: 24,
+                      height: 24,
                     ),
-                    // Nanti ganti child dengan: Image.asset('assets/icons/facebook.png', width: 24),
                   ),
                 ],
               ),
