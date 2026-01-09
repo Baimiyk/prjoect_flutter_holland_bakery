@@ -5,10 +5,8 @@ import '../widgets/search_bar.dart';
 import '../widgets/membership_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/store.dart';
-
-// Import Screen Tujuan
 import 'product.dart';
-import 'store.dart'; // Pastikan Anda sudah membuat file ini, atau sesuaikan namanya
+import 'store.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -18,7 +16,6 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
 
-      // Menggunakan SafeArea agar tidak tertutup notch HP
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -63,7 +60,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Store 1
+                  // Store 1 - Banyumanik
                   Store(
                     name: "Holland Bakery Banyumanik",
                     address: "Ruko Taman Setiabudi A4",
@@ -80,27 +77,21 @@ class DashboardScreen extends StatelessWidget {
                                 animation,
                                 secondaryAnimation,
                               ) => const StoreScreen(
-                                storeName:
-                                    "Holland Bakery Banyumanik", // Sesuaikan nama tokonya
-                                storeAddress: "Ruko Taman Setiabudi A4...",
+                                storeName: "Holland Bakery Banyumanik",
+                                storeAddress:
+                                    "Ruko Taman Setiabudi A4, Srondol Wetan, Wetan Kec. Banyumanik, Kota Semarang, Jawa Tengah 50263",
                                 storeInfo: "3.2 km | 12-25 mins",
                                 storeRating: "4.9",
                                 storeImage: "assets/images/store.png",
                               ),
-
-                          // 1. DURASI DIPERLAMBAT (800ms)
                           transitionDuration: const Duration(milliseconds: 800),
                           reverseTransitionDuration: const Duration(
                             milliseconds: 800,
-                          ), // Saat kembali juga smooth
-
+                          ),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
-                                const begin = Offset(1.0, 0.0); // Dari Kanan
+                                const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
-
-                                // 2. KURVA LEBIH LEMBUT (Smooth Start & End)
-                                // easeInOutCubic memberikan efek "mengayun" yang sangat halus
                                 const curve = Curves.easeInOutCubic;
 
                                 var tween = Tween(
@@ -119,7 +110,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Store 2
+                  // Store 2 - Kedung Mundu (DIPERBAIKI)
                   Store(
                     name: "Holland Bakery Kedung Mundu",
                     address: "Gaia Residence Semarang Ruko",
@@ -136,27 +127,22 @@ class DashboardScreen extends StatelessWidget {
                                 animation,
                                 secondaryAnimation,
                               ) => const StoreScreen(
-                                storeName:
-                                    "Holland Bakery Banyumanik", // Sesuaikan nama tokonya
-                                storeAddress: "Ruko Taman Setiabudi A4...",
-                                storeInfo: "3.2 km | 12-25 mins",
+                                // ✅ DATA STORE 2 YANG BENAR
+                                storeName: "Holland Bakery Kedung Mundu",
+                                storeAddress:
+                                    "Gaia Residence Semarang Ruko, Kedung Mundu, Kota Semarang, Jawa Tengah",
+                                storeInfo: "5.5 km | 12-40 mins",
                                 storeRating: "4.9",
                                 storeImage: "assets/images/store.png",
                               ),
-
-                          // 1. DURASI DIPERLAMBAT (800ms)
                           transitionDuration: const Duration(milliseconds: 800),
                           reverseTransitionDuration: const Duration(
                             milliseconds: 800,
-                          ), // Saat kembali juga smooth
-
+                          ),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
-                                const begin = Offset(1.0, 0.0); // Dari Kanan
+                                const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
-
-                                // 2. KURVA LEBIH LEMBUT (Smooth Start & End)
-                                // easeInOutCubic memberikan efek "mengayun" yang sangat halus
                                 const curve = Curves.easeInOutCubic;
 
                                 var tween = Tween(
@@ -200,9 +186,7 @@ class DashboardScreen extends StatelessWidget {
                     price: product['price']!,
                     imagePath: product['image']!,
                     likes: "3k likes",
-                    // Navigasi ke Detail Produk
                     onTap: () {
-                      // ANIMASI TRANSISI: SLIDE DARI BAWAH (Slide Up)
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -215,10 +199,7 @@ class DashboardScreen extends StatelessWidget {
                                   ),
                           transitionsBuilder:
                               (context, animation, secondaryAnimation, child) {
-                                const begin = Offset(
-                                  0.0,
-                                  1.0,
-                                ); // Muncul dari Bawah
+                                const begin = Offset(0.0, 1.0);
                                 const end = Offset.zero;
                                 const curve = Curves.easeInOut;
 
@@ -243,7 +224,6 @@ class DashboardScreen extends StatelessWidget {
               ),
             ),
 
-            // Padding bawah agar item terakhir tidak tertutup layar
             const SliverPadding(padding: EdgeInsets.only(bottom: 80)),
           ],
         ),
@@ -251,7 +231,6 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  // Data Dummy Produk
   List<Map<String, String>> _getProducts() {
     return [
       {
