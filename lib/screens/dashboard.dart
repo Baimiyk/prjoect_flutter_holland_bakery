@@ -5,22 +5,28 @@ import '../widgets/search_bar.dart';
 import '../widgets/membership_card.dart';
 import '../widgets/promo_banner.dart';
 import '../widgets/store.dart';
+import '../core/favorite_manager.dart';
 import 'product.dart';
 import 'store.dart';
+import 'favorites_screen.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             // ================== 1. HEADER ==================
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: DashboardHeader(
                 userName: "Fufufafa",
                 location: "Jl. Prof. Soedarto, Tembalang",
@@ -28,25 +34,32 @@ class DashboardScreen extends StatelessWidget {
             ),
 
             // ================== 2. SEARCH BAR ==================
-            SliverPersistentHeader(pinned: true, delegate: SearchBarDelegate()),
+            SliverPersistentHeader(
+              pinned: true,
+              delegate: SearchBarDelegate(
+                onFavoriteTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const FavoritesScreen()),
+                  );
+                },
+              ),
+            ),
 
-            // ================== 3. KONTEN (Membership, Promo, Toko) ==================
+            // ================== 3. KONTEN ==================
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               sliver: SliverList(
                 delegate: SliverChildListDelegate([
-                  // Membership & Coupon Card
                   const MembershipCard(
                     membershipLevel: "Silver",
                     points: "0 point",
                   ),
                   const SizedBox(height: 12),
 
-                  // Promo Banner
                   const PromoBanner(imagePath: "assets/images/promo1.png"),
                   const SizedBox(height: 15),
 
-                  // === STORES NEARBY SECTION ===
                   Divider(color: Colors.grey.shade300, thickness: 3, height: 3),
                   const SizedBox(height: 15),
 
@@ -60,7 +73,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Store 1 - Banyumanik
+                  // Store 1
                   Store(
                     name: "Holland Bakery Banyumanik",
                     address: "Ruko Taman Setiabudi A4",
@@ -93,12 +106,10 @@ class DashboardScreen extends StatelessWidget {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
                                 const curve = Curves.easeInOutCubic;
-
                                 var tween = Tween(
                                   begin: begin,
                                   end: end,
                                 ).chain(CurveTween(curve: curve));
-
                                 return SlideTransition(
                                   position: animation.drive(tween),
                                   child: child,
@@ -110,7 +121,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
 
-                  // Store 2 - Kedung Mundu (DIPERBAIKI)
+                  // Store 2
                   Store(
                     name: "Holland Bakery Kedung Mundu",
                     address: "Gaia Residence Semarang Ruko",
@@ -127,7 +138,6 @@ class DashboardScreen extends StatelessWidget {
                                 animation,
                                 secondaryAnimation,
                               ) => const StoreScreen(
-                                // ✅ DATA STORE 2 YANG BENAR
                                 storeName: "Holland Bakery Kedung Mundu",
                                 storeAddress:
                                     "Gaia Residence Semarang Ruko, Kedung Mundu, Kota Semarang, Jawa Tengah",
@@ -144,12 +154,10 @@ class DashboardScreen extends StatelessWidget {
                                 const begin = Offset(1.0, 0.0);
                                 const end = Offset.zero;
                                 const curve = Curves.easeInOutCubic;
-
                                 var tween = Tween(
                                   begin: begin,
                                   end: end,
                                 ).chain(CurveTween(curve: curve));
-
                                 return SlideTransition(
                                   position: animation.drive(tween),
                                   child: child,
@@ -162,12 +170,11 @@ class DashboardScreen extends StatelessWidget {
                   const SizedBox(height: 15),
 
                   Divider(color: Colors.grey.shade300, thickness: 3, height: 3),
-                  const SizedBox(height: 1),
                 ]),
               ),
             ),
 
-            // ================== 4. GRID PRODUK ==================
+            // ================== 4. GRID PRODUK (BISA FAVORIT) ==================
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               sliver: SliverGrid(
@@ -186,6 +193,11 @@ class DashboardScreen extends StatelessWidget {
                     price: product['price']!,
                     imagePath: product['image']!,
                     likes: "3k likes",
+                    isFavorite: FavoriteManager.isFavorite(product['title']!),
+                    onLikeTap: () {
+                      FavoriteManager.toggle(product['title']!);
+                      setState(() {});
+                    },
                     onTap: () {
                       Navigator.push(
                         context,
@@ -202,12 +214,10 @@ class DashboardScreen extends StatelessWidget {
                                 const begin = Offset(0.0, 1.0);
                                 const end = Offset.zero;
                                 const curve = Curves.easeInOut;
-
                                 var tween = Tween(
                                   begin: begin,
                                   end: end,
                                 ).chain(CurveTween(curve: curve));
-
                                 return SlideTransition(
                                   position: animation.drive(tween),
                                   child: child,
@@ -217,7 +227,6 @@ class DashboardScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    onLikeTap: () {},
                     onAddTap: () {},
                   );
                 }, childCount: 6),

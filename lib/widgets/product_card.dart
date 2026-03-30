@@ -1,5 +1,3 @@
-// product_card.dart → VERSI SESUAI PERMINTAANMU (title & harga fleksibel, likes tetap di bawah)
-
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
@@ -7,6 +5,7 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String imagePath;
   final String likes;
+  final bool isFavorite;
   final VoidCallback? onTap;
   final VoidCallback? onLikeTap;
   final VoidCallback? onAddTap;
@@ -17,6 +16,7 @@ class ProductCard extends StatelessWidget {
     required this.price,
     required this.imagePath,
     required this.likes,
+    this.isFavorite = false,
     this.onTap,
     this.onLikeTap,
     this.onAddTap,
@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
       color: Colors.white,
       borderRadius: BorderRadius.circular(15),
       elevation: 2,
-      shadowColor: Colors.grey.withValues(alpha:0.2),
+      shadowColor: Colors.grey.withValues(alpha: 0.2),
       child: InkWell(
         borderRadius: BorderRadius.circular(15),
         onTap: onTap,
@@ -60,7 +60,7 @@ class ProductCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // TITLE — fleksibel, max 3 baris
+                      // TITLE
                       Text(
                         title,
                         style: const TextStyle(
@@ -74,7 +74,7 @@ class ProductCard extends StatelessWidget {
 
                       const SizedBox(height: 6),
 
-                      // HARGA — posisinya mengikuti title secara alami
+                      // HARGA
                       Text(
                         price,
                         style: const TextStyle(
@@ -84,10 +84,9 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
 
-                      // Dorong likes ke paling bawah
                       const Spacer(),
 
-                      // LIKES + TOMBOL ADD — selalu di paling bawah
+                      // LIKES + HEART + ADD
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -95,9 +94,9 @@ class ProductCard extends StatelessWidget {
                             children: [
                               InkWell(
                                 onTap: onLikeTap,
-                                child: const Icon(
-                                  Icons.favorite_border,
-                                  color: Color(0xFFFF5621),
+                                child: Icon(
+                                  isFavorite ? Icons.favorite : Icons.favorite_border,
+                                  color: const Color(0xFFFF5621),
                                   size: 20,
                                 ),
                               ),

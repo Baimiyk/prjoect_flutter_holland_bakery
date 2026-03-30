@@ -19,8 +19,8 @@ class AccountScreen extends StatelessWidget {
             // SHADOW CONFIGURATION
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(
-                  0.4,
+                color: Colors.grey.withValues(
+                  alpha: 0.4,
                 ), // Warna bayangan (abu-abu halus)
                 spreadRadius: 1, // Sebaran bayangan
                 blurRadius: 5, // Tingkat kehalusan (blur)

@@ -23,7 +23,6 @@ class DashboardHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // ===== USER INFO =====
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +52,6 @@ class DashboardHeader extends StatelessWidget {
             ],
           ),
 
-          // ===== ACTION ICONS =====
           Row(
             children: [
               _buildIconButton(
@@ -83,7 +81,7 @@ class DashboardHeader extends StatelessWidget {
         onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: Icon(icon, color: const Color(0xFFFF5621)),
+          child: Icon(icon, color: const Color(0xFFFF5621), size: 26),
         ),
       ),
     );

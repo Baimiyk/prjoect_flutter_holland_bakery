@@ -13,7 +13,6 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   double get minExtent => 75;
-  
   @override
   double get maxExtent => 75;
 
@@ -29,7 +28,7 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha:0.8),
+            color: Colors.grey.withValues(alpha: 0.8),
             spreadRadius: 0,
             blurRadius: 5,
             offset: const Offset(0, 2),
@@ -66,10 +65,8 @@ class SearchBarDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
           ),
-          
+
           const SizedBox(width: 10),
-          
-          // Favorite Button
           Material(
             color: Colors.transparent,
             child: InkWell(

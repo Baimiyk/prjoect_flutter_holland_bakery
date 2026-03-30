@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'product.dart';
+import '../widgets/product_card.dart';
+import '../core/favorite_manager.dart';
 
 class StoreScreen extends StatefulWidget {
   final String storeName;
@@ -287,11 +289,30 @@ class _StoreScreenState extends State<StoreScreen> {
                   ),
                   delegate: SliverChildBuilderDelegate((context, index) {
                     final product = _getStoreProducts()[index];
-                    return _buildProductCard(
-                      context,
-                      product['title']!,
-                      product['price']!,
-                      product['image']!,
+
+                    return ProductCard(
+                      title: product['title']!,
+                      price: product['price']!,
+                      imagePath: product['image']!,
+                      likes: '1.2K',
+                      isFavorite: FavoriteManager.isFavorite(product['title']!),
+                      onLikeTap: () {
+                        FavoriteManager.toggle(product['title']!);
+                        setState(() {});
+                      },
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ProductDetailScreen(
+                              title: product['title']!,
+                              price: product['price']!,
+                              imagePath: product['image']!,
+                            ),
+                          ),
+                        );
+                      },
+                      onAddTap: () {},
                     );
                   }, childCount: _getStoreProducts().length),
                 ),
@@ -425,132 +446,6 @@ class _StoreScreenState extends State<StoreScreen> {
                     : Colors.grey.shade600,
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProductCard(
-    BuildContext context,
-    String title,
-    String price,
-    String imagePath,
-  ) {
-    return Material(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      elevation: 1,
-      shadowColor: Colors.grey.withValues(alpha: 0.2),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductDetailScreen(
-                title: title,
-                price: price,
-                imagePath: imagePath,
-              ),
-            ),
-          );
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.grey.shade200),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Product Image
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-                child: Image.asset(
-                  imagePath,
-                  height: 100,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-
-              // Product Info
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title
-                      Text(
-                        title,
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          height: 1.3,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 6),
-                      // Price
-                      Text(
-                        price,
-                        style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      const Spacer(),
-                      // Likes + Add Button
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.favorite_border,
-                                color: Color(0xFFFF5621),
-                                size: 18,
-                              ),
-                              const SizedBox(width: 4),
-                              Text(
-                                "3k likes",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Material(
-                            color: const Color(0xFFFF5621),
-                            shape: const CircleBorder(),
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(50),
-                              onTap: () {},
-                              child: const Padding(
-                                padding: EdgeInsets.all(6),
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),
